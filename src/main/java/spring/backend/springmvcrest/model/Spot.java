@@ -20,11 +20,11 @@ public class Spot {
     private String name;
     private float longitude;
     private float latitude;
-    private float wind;
+    private float windProbability;
     @ManyToOne
     @JsonManagedReference
     private Country country;
-    private String month;
+    private String whenToGo;
 
     @ManyToMany
     @JoinTable(name = "favorites",
