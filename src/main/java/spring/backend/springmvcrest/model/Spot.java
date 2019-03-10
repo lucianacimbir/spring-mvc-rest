@@ -1,7 +1,7 @@
 package spring.backend.springmvcrest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +11,11 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = "users")
+@EqualsAndHashCode(exclude = "applicationUsers")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Spot {
 
     @Id
@@ -22,7 +26,6 @@ public class Spot {
     private float latitude;
     private float wind;
     @ManyToOne
-    @JsonManagedReference
     private Country country;
     private String month;
 
@@ -30,8 +33,7 @@ public class Spot {
     @JoinTable(name = "favorites",
         joinColumns = @JoinColumn(name = "spot_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @JsonBackReference
-    private Set<User> users = new HashSet<>();
+    private Set<ApplicationUser> applicationUsers = new HashSet<>();
 
 
 

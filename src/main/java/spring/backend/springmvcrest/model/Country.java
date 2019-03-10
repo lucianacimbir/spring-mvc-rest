@@ -17,6 +17,5 @@ public class Country {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
-    @JsonBackReference
     private Set<Spot> spot = new HashSet<>();
 }

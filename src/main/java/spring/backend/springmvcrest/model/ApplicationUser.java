@@ -18,7 +18,7 @@ import java.util.Set;
                   generator = ObjectIdGenerators.PropertyGenerator.class,
                   property = "id"
                  )
-public class User {
+public class ApplicationUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,9 +27,14 @@ public class User {
     private String username;
     private String password;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "applicationUsers")
     private Set<Spot> spots = new HashSet<>();
 
-    public User(String username, String password, List<Object> emptyList) {
+    public ApplicationUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public ApplicationUser() {
     }
 }
