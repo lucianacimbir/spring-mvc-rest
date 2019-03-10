@@ -31,6 +31,11 @@ public class Spot {
     @JsonIgnore
     private Set<ApplicationUser> applicationUsers = new HashSet<>();
 
+    @Override
+    public String toString(){
+        return this.id + " " + this.name;
+    }
+
 
 
 }
