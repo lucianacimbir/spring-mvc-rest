@@ -4,10 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import spring.backend.springmvcrest.model.Country;
 import spring.backend.springmvcrest.model.Spot;
-import spring.backend.springmvcrest.model.User;
+import spring.backend.springmvcrest.model.ApplicationUser;
 import spring.backend.springmvcrest.repositories.CountryRepository;
 import spring.backend.springmvcrest.repositories.SpotRepository;
 import spring.backend.springmvcrest.repositories.UserRepository;
+
+import java.util.ArrayList;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -41,16 +43,16 @@ public class BootStrapData implements CommandLineRunner {
         //spotRepository.save(spot2);
 
 
-        User user = new User();
-        user.setName("Andrei");
+        ApplicationUser applicationUser = new ApplicationUser("andrei", "12345");
+        applicationUser.setName("Andrei");
 
-        user.getSpots().add(spot);
-        spot.getUsers().add(user);
+        applicationUser.getSpots().add(spot);
+        spot.getApplicationUsers().add(applicationUser);
 
-        user.getSpots().add(spot2);
-        spot2.getUsers().add(user);
+        applicationUser.getSpots().add(spot2);
+        spot2.getApplicationUsers().add(applicationUser);
 
-        userRepository.save(user);
+        userRepository.save(applicationUser);
 
         spotRepository.save(spot);
         spotRepository.save(spot2);

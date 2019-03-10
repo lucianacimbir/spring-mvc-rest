@@ -1,7 +1,6 @@
 package spring.backend.springmvcrest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = "users")
+@EqualsAndHashCode(exclude = "applicationUsers")
 public class Spot {
 
     @Id
@@ -22,7 +21,6 @@ public class Spot {
     private float latitude;
     private float windProbability;
     @ManyToOne
-    @JsonManagedReference
     private Country country;
     private String whenToGo;
 
@@ -30,8 +28,8 @@ public class Spot {
     @JoinTable(name = "favorites",
         joinColumns = @JoinColumn(name = "spot_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @JsonBackReference
-    private Set<User> users = new HashSet<>();
+    @JsonIgnore
+    private Set<ApplicationUser> applicationUsers = new HashSet<>();
 
 
 
