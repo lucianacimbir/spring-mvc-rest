@@ -1,12 +1,10 @@
 package spring.backend.springmvcrest.controllers;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.web.bind.annotation.*;
 import spring.backend.springmvcrest.model.ApplicationUser;
 import spring.backend.springmvcrest.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -24,13 +22,15 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+    public ApplicationUser signUp(@RequestBody Map<String, Object> body) {
         String pass = bCryptPasswordEncoder.encode(body.get("password").toString());
         String username = body.get("username").toString();
 
         ApplicationUser applicationUser = new ApplicationUser(username, pass);
 
         userRepository.save(applicationUser);
+
+        return applicationUser;
+    }
     }
 }
