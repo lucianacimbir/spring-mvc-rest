@@ -44,16 +44,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            System.out.println("HIIIIIIII89");
-            System.out.println(token);
             String user = Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
 
-            System.out.println("Hiiiiii2");
-            System.out.println(user);
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }

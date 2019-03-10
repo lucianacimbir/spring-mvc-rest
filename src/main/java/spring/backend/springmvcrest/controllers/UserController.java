@@ -31,13 +31,6 @@ public class UserController {
 
         ApplicationUser applicationUser = new ApplicationUser(username, pass);
 
-        System.out.println("DA FUQ DUDE");
-        System.out.println(applicationUser.toString());
         userRepository.save(applicationUser);
-        System.out.println(applicationUser);
-        //System.out.println(userRepository.findAll());
-        //applicationUser.setPassword(bCryptPasswordEncoder.encode(applicationUser.getPassword()));
-        //userRepository.save(applicationUser);
-        //return applicationUser;
     }
 }

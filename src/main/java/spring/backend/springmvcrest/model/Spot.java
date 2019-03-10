@@ -1,7 +1,6 @@
 package spring.backend.springmvcrest.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,10 +11,6 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = "applicationUsers")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
 public class Spot {
 
     @Id
@@ -33,6 +28,7 @@ public class Spot {
     @JoinTable(name = "favorites",
         joinColumns = @JoinColumn(name = "spot_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
     private Set<ApplicationUser> applicationUsers = new HashSet<>();
 
 

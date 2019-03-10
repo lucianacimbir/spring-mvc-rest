@@ -1,6 +1,6 @@
 package spring.backend.springmvcrest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,5 +17,6 @@ public class Country {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
+    @JsonIgnore
     private Set<Spot> spot = new HashSet<>();
 }
