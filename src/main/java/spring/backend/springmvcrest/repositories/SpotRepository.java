@@ -6,4 +6,5 @@ import spring.backend.springmvcrest.model.Spot;
 
 @Repository
 public interface SpotRepository extends JpaRepository<Spot, Long> {
+    int countById(Long id);
 }
