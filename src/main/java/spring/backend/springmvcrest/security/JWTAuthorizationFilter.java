@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import static spring.backend.springmvcrest.security.SecurityConstants.HEADER_STRING;
 import static spring.backend.springmvcrest.security.SecurityConstants.SECRET;
@@ -43,16 +44,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // parse the token.
-            String user = Jwts.parser()
+            LinkedHashMap auth_user = (LinkedHashMap) Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token)
                     .getBody()
-                    .getSubject();
+                    .get("user");
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            if (auth_user != null && !auth_user.get("id").toString().isEmpty()) {
+                return new UsernamePasswordAuthenticationToken(auth_user.get("id").toString(), null, new ArrayList<>());
             }
+
             return null;
         }
         return null;
