@@ -32,38 +32,35 @@ public class BootStrapData implements CommandLineRunner {
 
         Country country = new Country();
         country.setName("Spain");
-        countryRepository.save(country);
+        countryRepository.saveAndFlush(country);
 
         Spot spot = new Spot();
         spot.setName("abracadabra");
+        spot.setWhenToGo("SEPTEMBER");
+        spot.setWindProbability(30);
         spot.setCountry(country);
 
         Spot spot2 = new Spot();
-        spot2.setName("mac");
+        spot2.setName("macmac");
+        spot2.setWhenToGo("MAY");
         spot2.setCountry(country);
 
         Spot spot3 = new Spot();
         spot3.setName("balala");
+        spot3.setWhenToGo("APRIL");
         spot3.setCountry(country);
 
 
-        ApplicationUser applicationUser = new ApplicationUser("andrei", "12345");
-        applicationUser.setName("Andrei");
+        ApplicationUser applicationUser = new ApplicationUser("Andrei", "andrei", "123456");
 
-        ApplicationUser applicationUser1 = new ApplicationUser("merry", "christmas");
-        applicationUser1.setName("Maria");
+        ApplicationUser applicationUser1 = new ApplicationUser("Maria", "merry", "christmas");
 
-        userRepository.save(applicationUser);
-        userRepository.save(applicationUser1);
+        userRepository.saveAndFlush(applicationUser);
+        userRepository.saveAndFlush(applicationUser1);
 
-        spotRepository.save(spot);
-        spotRepository.save(spot2);
-        spotRepository.save(spot3);
-
-        /*Favorite favorite = new Favorite();
-        favorite.setUser(applicationUser);
-        favorite.setSpot(spot);
-        favoriteRepository.save(favorite);*/
+        spotRepository.saveAndFlush(spot);
+        spotRepository.saveAndFlush(spot2);
+        spotRepository.saveAndFlush(spot3);
 
 
         Favorite favorite2 = new Favorite();
@@ -78,9 +75,9 @@ public class BootStrapData implements CommandLineRunner {
         favorite4.setUser(applicationUser1);
         favorite4.setSpot(spot);
 
-        favoriteRepository.save(favorite2);
-        favoriteRepository.save(favorite3);
-        favoriteRepository.save(favorite4);
+        favoriteRepository.saveAndFlush(favorite2);
+        favoriteRepository.saveAndFlush(favorite3);
+        favoriteRepository.saveAndFlush(favorite4);
 
 
 

@@ -7,4 +7,5 @@ import spring.backend.springmvcrest.model.ApplicationUser;
 @Repository
 public interface UserRepository extends JpaRepository<ApplicationUser, Long> {
     ApplicationUser findByUsername(String username);
+    int countById(Long id);
 }
