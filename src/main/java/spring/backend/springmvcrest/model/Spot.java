@@ -19,17 +19,19 @@ public class Spot {
     private String name;
     private float longitude;
     private float latitude;
-    private float wind;
+    private float windProbability;
     @ManyToOne
     private Country country;
-    private String month;
+    private String whenToGo;
 
-    @ManyToMany
-    @JoinTable(name = "favorites",
-        joinColumns = @JoinColumn(name = "spot_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @OneToMany(mappedBy = "spot")
     @JsonIgnore
-    private Set<ApplicationUser> applicationUsers = new HashSet<>();
+    private Set<Favorite> favorites = new HashSet<>();
+
+    @Override
+    public String toString(){
+        return this.id + " " + this.name;
+    }
 
 
 

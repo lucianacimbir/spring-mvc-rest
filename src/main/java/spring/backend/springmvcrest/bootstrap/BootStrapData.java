@@ -3,13 +3,13 @@ package spring.backend.springmvcrest.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import spring.backend.springmvcrest.model.Country;
+import spring.backend.springmvcrest.model.Favorite;
 import spring.backend.springmvcrest.model.Spot;
 import spring.backend.springmvcrest.model.ApplicationUser;
 import spring.backend.springmvcrest.repositories.CountryRepository;
+import spring.backend.springmvcrest.repositories.FavoriteRepository;
 import spring.backend.springmvcrest.repositories.SpotRepository;
 import spring.backend.springmvcrest.repositories.UserRepository;
-
-import java.util.ArrayList;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -17,11 +17,13 @@ public class BootStrapData implements CommandLineRunner {
     private final SpotRepository spotRepository;
     private final UserRepository userRepository;
     private final CountryRepository countryRepository;
+    private final FavoriteRepository favoriteRepository;
 
-    public BootStrapData(SpotRepository spotRepository, UserRepository userRepository, CountryRepository countryRepository) {
+    public BootStrapData(SpotRepository spotRepository, UserRepository userRepository, CountryRepository countryRepository, FavoriteRepository favoriteRepository) {
         this.spotRepository = spotRepository;
         this.userRepository = userRepository;
         this.countryRepository = countryRepository;
+        this.favoriteRepository = favoriteRepository;
     }
 
 
@@ -35,27 +37,50 @@ public class BootStrapData implements CommandLineRunner {
         Spot spot = new Spot();
         spot.setName("abracadabra");
         spot.setCountry(country);
-        //spotRepository.save(spot);
 
         Spot spot2 = new Spot();
         spot2.setName("mac");
         spot2.setCountry(country);
-        //spotRepository.save(spot2);
+
+        Spot spot3 = new Spot();
+        spot3.setName("balala");
+        spot3.setCountry(country);
 
 
         ApplicationUser applicationUser = new ApplicationUser("andrei", "12345");
         applicationUser.setName("Andrei");
 
-        applicationUser.getSpots().add(spot);
-        spot.getApplicationUsers().add(applicationUser);
-
-        applicationUser.getSpots().add(spot2);
-        spot2.getApplicationUsers().add(applicationUser);
+        ApplicationUser applicationUser1 = new ApplicationUser("merry", "christmas");
+        applicationUser1.setName("Maria");
 
         userRepository.save(applicationUser);
+        userRepository.save(applicationUser1);
 
         spotRepository.save(spot);
         spotRepository.save(spot2);
+        spotRepository.save(spot3);
+
+        /*Favorite favorite = new Favorite();
+        favorite.setUser(applicationUser);
+        favorite.setSpot(spot);
+        favoriteRepository.save(favorite);*/
+
+
+        Favorite favorite2 = new Favorite();
+        favorite2.setUser(applicationUser);
+        favorite2.setSpot(spot2);
+
+        Favorite favorite3 = new Favorite();
+        favorite3.setUser(applicationUser);
+        favorite3.setSpot(spot3);
+
+        Favorite favorite4 = new Favorite();
+        favorite4.setUser(applicationUser1);
+        favorite4.setSpot(spot);
+
+        favoriteRepository.save(favorite2);
+        favoriteRepository.save(favorite3);
+        favoriteRepository.save(favorite4);
 
 
 

@@ -1,7 +1,8 @@
 package spring.backend.springmvcrest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NonNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,12 +19,17 @@ public class ApplicationUser {
     private String username;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "applicationUsers")
-    private Set<Spot> spots = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Favorite> favorites = new HashSet<>();
 
     public ApplicationUser(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = bCryptPasswordEncoder().encode(password);
+    }
+
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     public ApplicationUser() {

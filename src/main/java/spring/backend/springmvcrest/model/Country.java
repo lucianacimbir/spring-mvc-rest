@@ -19,4 +19,9 @@ public class Country {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
     @JsonIgnore
     private Set<Spot> spot = new HashSet<>();
+
+    @Override
+    public String toString(){
+        return this.id + " " + this.name;
+    }
 }
